@@ -6,30 +6,33 @@ import java.util.Scanner;
 //(1) input array의 string 원소를 CharArray로 변환 
 //(2)lt 와 rt를 줘서 순차적으로 바꿔가면서 진행. lt<rt 일때만 뒤집기를 한다. 
 //String의 길이는 괄호필요 | ex. x.length() / Array라면 x.length 
-public class If04_v2 {
+
+public class Main {
 
 	public ArrayList<String> solution(int number, String[] array) {
 		ArrayList<String> answer = new ArrayList<>();
 		for (String x : array) {
 			char[] s = x.toCharArray();
-			int lt = 0, rt = x.length()-1;
-			while(lt<rt) {
+			int lt = 0, rt = x.length() - 1;
+			while (lt < rt) {
 				char tmp = s[lt];
 				s[lt] = s[rt];
 				s[rt] = tmp;
 				lt++;
-				rt++;				
+				rt--;
 			}
-	}
+			String tmp = String.copyValueOf(s);
+			answer.add(tmp);
+		}
 		return answer;
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		If04 T = new If04();
+		Main T = new Main();
 		Scanner kb = new Scanner(System.in);
 		int number = kb.nextInt();
-		//["good", "bad"...]
+		// ["good", "bad"...]
 		String[] array = new String[number];
 		for (int i = 0; i < number; i++) {
 			array[i] = kb.next();

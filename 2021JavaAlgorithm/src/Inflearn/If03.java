@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+//정답이지만 아쉬움 많은 코드. 다시 풀 것. if-else 처리를 안해주면 런타임 에러가 난다 (에디터에서 잘 돌아가더라도) 
+//125ms, 28MB 
 public class If03 {
 
 	// sc.nextLine()은 입력값을 한 줄로 입력받음.
