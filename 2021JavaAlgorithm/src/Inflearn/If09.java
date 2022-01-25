@@ -2,7 +2,7 @@ package Inflearn;
 
 import java.util.Scanner;
 
-//컴파일 에러 오답 
+//replaceAll 활용
 public class If09 {
 
 	// .get(0): 리스트 [0]: ArrayList
