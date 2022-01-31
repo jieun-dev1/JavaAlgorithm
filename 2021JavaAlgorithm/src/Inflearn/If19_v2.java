@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class If19_v2 {
 
 	public int solution(int num, int[] arr) {
-		int[] score = new int[num];
 		int answer = 0;
 		int cnt = 0;
 		for (int i = 0; i < num; i++) {
@@ -13,6 +12,9 @@ public class If19_v2 {
 				cnt++;
 				answer += cnt;
 			}
+
+			else
+				cnt = 0;
 		}
 		return answer;
 	}
