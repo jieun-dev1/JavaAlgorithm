@@ -19,7 +19,7 @@ package Programmers;
 //}
 import java.util.HashMap;
 
-class Soltuion {
+class Marathon {
 	public String solution(String[] participant, String[] completion) {
 		String answer = "";
 		HashMap<String, Integer> hm = new HashMap<>();

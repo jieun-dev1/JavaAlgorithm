@@ -3,7 +3,7 @@ package Inflearn;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+public class TP {
 	public ArrayList<Integer> solution(int num1, int num2, int[] Arr1, int[] Arr2) {
 		ArrayList<Integer> list = new ArrayList<>();
 		int pi = 0;
@@ -26,7 +26,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Main answer = new Main();
+		TP answer = new TP();
 		Scanner sc = new Scanner(System.in);
 		int num1 = sc.nextInt();
 		int[] Arr1 = new int[num1];

@@ -99,7 +99,7 @@ public class Heap<E> {
 
 	// Comparator 을 이용한 sift-up
 	@SuppressWarnings("unchecked")
-	private void siftUpComparator(int idx, E target, Comparator<? super E> comp)
+	private void siftUpComparator(int idx, E target, Comparator<? super E> comp) {
 	//root 노드보다 클 때까지만 탐색한다. 
 	while(idx > 1) {
 		int parent = getParent(idx); //삽입노드의 부모 노드 인덱스 구하기 

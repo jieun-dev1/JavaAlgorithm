@@ -7,7 +7,7 @@ import java.util.Scanner;
 //(2)lt 와 rt를 줘서 순차적으로 바꿔가면서 진행. lt<rt 일때만 뒤집기를 한다. 
 //String의 길이는 괄호필요 | ex. x.length() / Array라면 x.length 
 
-public class Main {
+public class If04_v2 {
 
 	public ArrayList<String> solution(int number, String[] array) {
 		ArrayList<String> answer = new ArrayList<>();
@@ -29,7 +29,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Main T = new Main();
+		If04_v2 T = new If04_v2();
 		Scanner kb = new Scanner(System.in);
 		int number = kb.nextInt();
 		// ["good", "bad"...]

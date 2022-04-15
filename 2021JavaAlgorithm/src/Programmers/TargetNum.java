@@ -1,4 +1,6 @@
-class Solution {
+package Programmers;
+
+class TargetNum {
 	public int solution(int[] numbers, int target) {
 		int answer = 0;
 		answer = dfs(numbers, 0, 0, target);

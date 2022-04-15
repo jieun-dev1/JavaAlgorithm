@@ -46,13 +46,14 @@ public class IfTwoPointer {
 		int[] arr2 = new int[num2];
 		for (int i = 0; i < num2; i++) {
 			arr2[i] = sc.nextInt();
-		
 
-		for (int data : answer.solution(arr1, arr2, num1, num2)) {
-			System.out.print(data + " ");
-		}
+
+			for (int data : answer.solution(arr1, arr2, num1, num2)) {
+				System.out.print(data + " ");
+			}
 //		System.out.println(answer.printResult(arr1, arr2, num1, num2, result));
 
-	}
+		}
 
+	}
 }
