@@ -34,6 +34,7 @@ public class If14 {
 
 }
 
+//array[0] 이 정의되지 않았기 떄문에 오답이다.
 //	public static void main(String[] args) {
 //	// TODO Auto-generated method stub
 //	If14 T = new If14();

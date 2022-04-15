@@ -11,20 +11,25 @@ public class IfTwoPointer {
 		ArrayList<Integer> answer = new ArrayList<>();
 		int pi = 0;
 		int pj = 0;
+
 		while (pi < num1 && pj < num2) {
 			if (arr1[pi] <= arr2[pj]) {
-				answer.add(arr1[pi++]);
-// pi 와 pj++ 를 따로 넣으면, out of memory 에러가 발생한다.
-			} else
-				answer.add(arr2[pj++]);
-
+				answer.add(arr1[pi]);
+				pi++; // 이렇게 별도로 넣으려면 if else block 을 묶어줘야 함.
+			} else {
+				answer.add(arr2[pj]);
+				pj++;
+			}
 		}
-		while (pi < num1)
-			answer.add(arr1[pi++]);
+		while (pi < num1) {
+			answer.add(arr1[pi]);
+			pi++;
+		}
 
-		while (pj < num2)
-			answer.add(arr2[pj++]);
-
+		while (pj < num2) {
+			answer.add(arr2[pj]);
+			pj++;
+		}
 		return answer;
 	}
 
@@ -41,7 +46,7 @@ public class IfTwoPointer {
 		int[] arr2 = new int[num2];
 		for (int i = 0; i < num2; i++) {
 			arr2[i] = sc.nextInt();
-		}
+		
 
 		for (int data : answer.solution(arr1, arr2, num1, num2)) {
 			System.out.print(data + " ");

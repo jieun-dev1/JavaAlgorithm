@@ -2,6 +2,7 @@ package Inflearn;
 
 import java.util.Scanner;
 
+//if 조건문 뒤 {} 안에 결과 조건문 꼭 넣어줄 것 
 public class If23 {
 
 	public int solution(int[][] arr, int n) {

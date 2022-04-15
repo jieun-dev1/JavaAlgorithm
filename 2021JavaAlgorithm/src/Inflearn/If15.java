@@ -37,8 +37,12 @@ public class If15 {
 			arrayB[i] = sc.nextInt();
 		}
 
-		for (String x : T.solution(arrayA, arrayB, num))
-			System.out.print(x + "\n");
-	}
+////		for (String x : T.solution(arrayA, arrayB, num))
+////			System.out.print(x + "\n");
+////	}
+//		
+//		for (char x : T.solution(arrayA, arrayB, num).toCharArray())
+//			System.out.println(x);
+//	}
 
 }

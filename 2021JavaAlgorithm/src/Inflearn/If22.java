@@ -13,21 +13,6 @@ public class If22 {
 					answer++;
 			}
 
-//			if (arr[i][i] <= arr[i][i - 1] || arr[i][i] <= arr[i - 1][i] || arr[i][i] <= arr[i][i + 1]
-//					|| (arr[i][i] <= arr[i + 1][i])) {
-//				continue;
-//			} else
-//				answer++;
-//			if (arr[i][i] <= arr[i][i - 1])
-//				continue;
-//			else if (arr[i][i] <= arr[i - 1][i])
-//				continue;
-//			else if (arr[i][i] <= arr[i][i + 1])
-//				continue;
-//			else if (arr[i][i] <= arr[i + 1][i])
-//				continue;
-//			else
-//				answer += 1;
 		}
 		return answer;
 

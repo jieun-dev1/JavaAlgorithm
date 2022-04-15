@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class If13 {
-	// 배열을 쓰려고 했으나, 배열을 쓰면 인덱스를 일일이 정해줘야함. ArrayList쓰자.
+	// ArrayList 써야하는 이유 (배열 값에 접근하려면, []인덱스를 사용해야 하기 때문] 결과 리스트가 고정되지 않으니 ARrayList
+	// 쓴다.
 	public ArrayList<Integer> solution(int num, int[] array) {
 		ArrayList<Integer> answer = new ArrayList<>();
 		answer.add(array[0]);

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+// 같지 않다가 아니라 (그러면 for 문을 다 돌려야 함) 1. 오름차순 정렬 2. 대소 비교 로 접근.
+
 public class If26 {
 
 	public ArrayList<Integer> solution(int num1, int[] arr1, int num2, int[] arr2) {
@@ -12,7 +14,6 @@ public class If26 {
 		int pj = 0;
 		Arrays.sort(arr1);
 		Arrays.sort(arr2);
-		// 같지 않다가 아니라 작다로 접근.
 		while (pi < num1 && pj < num2) {
 			if (arr1[pi] == arr2[pj]) {
 				list.add(arr1[pi]);

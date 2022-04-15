@@ -2,23 +2,29 @@ package Inflearn;
 
 import java.util.Scanner;
 
-//else cnt = 0; 코드가 꼭 들어가야 한다 (그래야 count초기화를 하니까) 
-
-public class If19_v2 {
+//오답 
+public class If19 {
 
 	public int solution(int num, int[] arr) {
+		int[] score = new int[num];
 		int answer = 0;
-		int cnt = 0;
 		for (int i = 0; i < num; i++) {
-			if (arr[i] == 1) {
-				cnt++;
-				answer += cnt;
+			if (arr[0] == 1) {
+				score[0] = 1;
+				answer += score[0];
+			} else if (arr[i] == 1 && arr[i - 1] == 0) {
+				score[i] = 1;
+				answer += score[i];
+			} else if (arr[i] == 0) {
+				score[i] = 0;
+			} else if (arr[i] == 1 && arr[i - 1] == 1) {
+				score[i] = score[i - 1] + arr[i];
+				answer += score[i];
 			}
-
-			else
-				cnt = 0;
 		}
+
 		return answer;
+
 	}
 
 	public static void main(String[] args) {

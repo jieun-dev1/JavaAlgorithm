@@ -21,7 +21,7 @@ public class Revenue {
 			hm.put(record[rt], hm.getOrDefault(record[rt], 0) + 1);
 			answer.add(hm.size());
 			hm.put(record[lt], hm.getOrDefault(record[lt], 0) - 1);
-			if (record[lt] == 0) {
+			if (hm.get(record[lt]) == 0) { // 값이 0일 때 key를 삭제하는 것.
 				hm.remove(record[lt]);
 			}
 			lt++;
