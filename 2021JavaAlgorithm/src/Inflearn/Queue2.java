@@ -30,7 +30,7 @@ public class Queue2 {
         }
 
         if(!q1.isEmpty()) {
-            answer = "NO";
+            answer = "NO"; //return No 할수도 있는데, 왜인지 return 으로 했을 때 10분이 느림.
         }
 
         return answer;
