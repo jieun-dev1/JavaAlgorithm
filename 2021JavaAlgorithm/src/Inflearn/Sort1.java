@@ -3,6 +3,8 @@ package Inflearn;
 import java.util.Arrays;
 import java.util.Scanner;
 
+//선택 정렬
+
 public class Sort1 {
     public int[] solution(int num, int [] input){
         int temp = 0;

@@ -2,6 +2,7 @@ package Inflearn;
 
 import java.util.*;
 
+//버블정렬
 public class Sort2 {
     public int[] solution(int num, int[] input){
         int n = input.length;
