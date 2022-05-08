@@ -8,6 +8,8 @@ import java.util.Scanner;
  * back 할 떄는 check 풀어줘야 함.
  *
  * 어떻게 중복 호출 발생하지 않는건지? 5를 체크 배열에서 지우고 4로 돌아오면 왜 다시 5로 돌아가는 재귀(?) 가 일어나지 않는건지.. 모르겠다.
+ * ch[i]가 DFS(i) 뒤에 있기 때문이다. 1-2를 거치고 다시 1로 돌아왔을 때, ch[2]는 1이다. 그러니 다시 ch[i]=1하는 무한반복이 일어나지 x.
+ * 2차원 배열은 100개라고 하면 10000개 이기 떄문에 데이터 소모가 크고 비효율적. 인접 리스트 방식: 리스트 길이만큼만 돈다.
  */
 
 public class Graph {
@@ -19,10 +21,10 @@ public class Graph {
     public void DFS(int v){
         if (v == n) answer ++;
         else {
-            for(int i=1;i<=n;i++){
+             for(int i=1;i<=n;i++){
                 if (route[v][i] == 1 && ch[i]!=1) {
                     ch[i] = 1;
-                    DFS(i);
+                    DFS(i); //재귀가 끝나면 CH[i] = 0으로 넘어갈 수 있음.
                     ch[i] = 0;
                 }
         }
