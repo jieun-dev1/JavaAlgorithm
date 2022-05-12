@@ -4,6 +4,12 @@ import java.util.Scanner;
 //쌓여있는 Queue 를 일일이 호출하지 않고, flag 가 yes 이면 바로 return 할 수 있도록.
 
 //return을 한다는 것은 굳이 실행시키지 않고, 넘어간다는 것.
+
+/**
+ * 만약 total이 125이면 125/2==62가 참이 됩니다. 이런 경우를 방지하기 위하여
+ * if(total%2==0 && (total / 2) == sum)
+ */
+
 public class BFSSubset {
     static String answer="NO";
     static int n,total=0;
