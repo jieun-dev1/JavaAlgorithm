@@ -5,9 +5,10 @@ import java.util.Scanner;
 //1번 더 풀었는데도 어렵다.. 다시 풀기.
 //DFS 아마존 기출.
 public class DFSSubset2 {
-    static String answer = "No";
+//    String answer = "No";
+    static String answer = "No"; //해당 코드에서 static method 에서 answer 출력하기 위해 static
     static int sum, n;
-    static boolean flag = false; //return 이 같은 지점이 있는지 체크.
+    boolean flag = false; //return 이 같은 지점이 있는지 체크.
     public void DFS(int L, int value, int[] arr){
         if (flag == true) return; //true 라면 이미 answer = Yes. Return 이라는 건 해당 if 문만 나가는 뜻인거같다. 다음 if 문으로 계속 넘어감.
         if (value>sum/2) return; // value 가 더 크다면, 더 계산할 필요가 없다.

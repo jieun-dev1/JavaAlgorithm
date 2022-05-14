@@ -11,9 +11,9 @@ import java.util.Scanner;
  */
 
 public class BFSSubset {
-    static String answer="NO";
+    static String answer="NO"; //
     static int n,total=0;
-    boolean flag = false;
+    boolean flag = false; //flag 가 static 이 아니어도 되는 이유: 한번 true 로 바꾸면 로직 상, 여기서 다시 바뀌지 않음. main 메서드 호출값이 아님.
 
     public void DFS(int L, int sum, int[] arr){
         if(flag) return;
@@ -33,7 +33,7 @@ public class BFSSubset {
     }
 
     public static void main(String[] args) {
-        BFSSubset T = new BFSSubset();
+        BFSSubset T = new BFSSubset(); // 같은 객체를 여러번 호출하는 것(?)
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt(); //해당 값을 n이 아니라 int n을 해버리면 static 의 변수를 바꾸는 게 아니어서. 재귀가 돌지 않는다. L=n=0에서 끝나버린다. n을 매개변수로 넘겨주던가, static 으로 선언해야 함.
         int[] arr = new int[n];
