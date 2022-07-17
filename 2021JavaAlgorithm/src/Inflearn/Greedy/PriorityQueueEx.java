@@ -34,7 +34,11 @@ Queue<Integer> q = new PriorityQueue<Integer>(Collections.reverseOrder());
 3일 날짜에 남은 원소가 있다면, 이를 다음 순서인 2일 날짜에 남은 원소에 더한다.
 (3) queue에 넣고 빼기.
 
-소요시간: 2시간.
+2차 구현
+(4) 런타임 에러 이유: q가 empty일 수도 있기 때문에, empty가 아닌 경우 분기 필요.
+   if ((result = (E) ((es = queue)[0])) != null) {
+   구현체를 보면 null이 아닌, 적어도 원소가 하나 있는 것을 가정하고 있기 때문에. 여기서 empty가 아님을 조건에 넣어야 함.
+   소요시간: 2시간.
 
  */
 
@@ -56,19 +60,20 @@ class Slot implements Comparable<Slot> {
 class PriorityQueueEx {
     static int cnt;
     static int answer = 0;
-    static PriorityQueue<Integer> q = new PriorityQueue(Collections.reverseOrder());; //q에 넣은 값 중에 가장 큰 값을 poll하도록.
     static int max = Integer.MIN_VALUE; //max 계산 시 Integer.MIN_VALUE
 
     public int solution(ArrayList<Slot> arr) {
 //d가 같은 짝끼리 priority queue에 넣고, 그 중 가장 큰 걸 poll. pq에서 가장 큰 것만 빼내는 작업은, max 횟수 만큼만 하면 된다. (max 날짜 이상 일할 수 없어서)
 
+        PriorityQueue<Integer> q = new PriorityQueue(Collections.reverseOrder());; //q에 넣은 값 중에 가장 큰 값을 poll하도록.
         for(int i=max;i>0;i--) { //EX.3,2,1
             for(int j=0;j<cnt;j++) {
                 if(arr.get(j).D == i) { // ARRAYLIST의 특정 원소의 D값 중 i인게 있다면,
                     q.offer(arr.get(j).M);
                 }
             }
-            answer += q.poll();
+            if(!q.isEmpty()) answer+= q.poll();
+//            answer += q.poll();
         }
 
         return answer;
@@ -89,7 +94,7 @@ class PriorityQueueEx {
         }
 
         Collections.sort(arr);
-        
+
         System.out.println(T.solution(arr));
     }
 }
