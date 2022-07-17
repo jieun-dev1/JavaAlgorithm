@@ -1,5 +1,6 @@
 package Inflearn.Greedy;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -20,43 +21,75 @@ ex. 3,1,2,5.4 순으로 넣었지만, 출력해보면 1,2,3,4,5 다. 1부터 (숫자가 작을 수록 
 막힌 것: Collections.sort()로 정렬하고 싶은데, List 만 가능함. Queue는 어떻게 정렬하지?
 Queue<Integer> q = new PriorityQueue<Integer>(Collections.reverseOrder());
 답: Queue를 만들 떄, 안에 Collection.reverseOrder()
+
+1차 구현 오답
+(1) 문제 잘못 이해함.
+수입(M)순이 아니라 시간(d)순으로 정렬 필요.
+시간: 3,2,1 순으로 역순 정렬.
+시간 순으로 정렬하는 이유:
+시간:
+(2) 자료 구조를 만들 때,
+정렬은 ArrayList에서
+날짜 별로 PQ에 담고 가장 높은 점수를 POLL().
+3일 날짜에 남은 원소가 있다면, 이를 다음 순서인 2일 날짜에 남은 원소에 더한다.
+(3) queue에 넣고 빼기.
+
+소요시간: 2시간.
+
  */
-//
-//class Slot implements Comparable<Slot> {
-//    int M;
-//    int D;
-//
-//    Slot(int M, int D) {
-//        this.M = M;
-//        this.D = D;
-//    }
-//
-//    @Override
-//    public int compareTo(Slot o) {
-//        return o.M - this.M;
-//    }
-//}
+
+class Slot implements Comparable<Slot> {
+    int M;
+    int D;
+
+    Slot(int M, int D) {
+        this.M = M;
+        this.D = D;
+    }
+
+    @Override
+    public int compareTo(Slot o) {
+        return o.D - this.D; //D 높은 순으로 정렬 확인.
+    }
+}
 
 class PriorityQueueEx {
+    static int cnt;
+    static int answer = 0;
+    static PriorityQueue<Integer> q = new PriorityQueue(Collections.reverseOrder());; //q에 넣은 값 중에 가장 큰 값을 poll하도록.
+    static int max = Integer.MIN_VALUE; //max 계산 시 Integer.MIN_VALUE
+
+    public int solution(ArrayList<Slot> arr) {
+//d가 같은 짝끼리 priority queue에 넣고, 그 중 가장 큰 걸 poll. pq에서 가장 큰 것만 빼내는 작업은, max 횟수 만큼만 하면 된다. (max 날짜 이상 일할 수 없어서)
+
+        for(int i=max;i>0;i--) { //EX.3,2,1
+            for(int j=0;j<cnt;j++) {
+                if(arr.get(j).D == i) { // ARRAYLIST의 특정 원소의 D값 중 i인게 있다면,
+                    q.offer(arr.get(j).M);
+                }
+            }
+            answer += q.poll();
+        }
+
+        return answer;
+    }
 
     public static void main(String[] args) {
-        Queue<Integer> q = new PriorityQueue<Integer>(Collections.reverseOrder());
+        ArrayList<Slot> arr = new ArrayList<>();
+        PriorityQueueEx T = new PriorityQueueEx();
         Scanner sc = new Scanner(System.in);
-        int cnt = sc.nextInt();
-        int max = 0;
-        int answer = 0;
+        cnt = sc.nextInt();
         for(int i=0; i<cnt;i++) {
             int M = sc.nextInt();
             int D = sc.nextInt();
-            q.offer((M));
+            arr.add(new Slot(M, D));
             if(D>max) {
                 max = Math.max(D, max);
             }
         }
-        for(int i=0;i<max;i++) {
-//            System.out.println(q.poll());
-                    answer += q.poll();
-        }
-        System.out.println(answer);
+
+        Collections.sort(arr);
+        
+        System.out.println(T.solution(arr));
     }
 }
