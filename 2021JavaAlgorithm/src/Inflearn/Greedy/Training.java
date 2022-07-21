@@ -2,7 +2,10 @@ package Inflearn.Greedy;
 
 import java.util.*;
 
+
 /*
+참고: https://school.programmers.co.kr/learn/courses/30/lessons/42862#
+
  전체 카운트 - lost 학생 수: default 값
  lost 배열을 Queue에 넣는다.
  if lost[i] 가 reserve 의 앞이나 뒤라면, +1을 리턴.
@@ -12,107 +15,56 @@ import java.util.*;
 public class Training {
 
     public int solution(int n, int[] lost, int[] reserve) {
-        int answer = 0;
-        int noShow = 0; // 최종적으로 체육수업 불참하는 학생 수.
+        int answer = n;
+        int[] arr = new int[n+2];
+        Arrays.sort(lost);
+        Arrays.sort(reserve);
+        //체육복 잃어버린 학생 = 0;
+        //주어지는 건 숫자지만, 0부터 인덱스가 시작하기 때문에, 실제로 인덱싱은 -1을 해준다.
 
-        //주어진 배열을 ArrayList에 담기
-        ArrayList<Integer> lostList = new ArrayList<Integer>();
-        for (int i = 0; i < lost.length; i++) {
-            lostList.add(lost[i]);
-        }
 
-        ArrayList<Integer> reserveList = new ArrayList<Integer>();
-        for (int i = 0; i < reserve.length; i++) {
-            reserveList.add(reserve[i]);
-        }
-
-        //lost 와 reserve 에 모두 존재하는 값이 있다면 제거해주기 - 여벌을 가져왔는데, 잃어버림 = 못 빌려줌 & 수업은 참여 가능
-        ArrayList<Integer>dupList = new ArrayList<>();
-        dupList.addAll(reserveList);
-        dupList.retainAll(lostList);
-        lostList.removeAll(dupList);
-        reserveList.removeAll(dupList);
-
-        //이중 for 문을 쓰지 않으려면? - Queue 에 담아서 비교해봄
-        Queue<Integer> lostQ = new LinkedList<>();
-        for (int i : lostList) {
-            lostQ.offer(i);
-        }
-
-        ArrayList<Integer> removedList = new ArrayList<>();
-        //reserveList 를 삭제해주지 않으면, lost 의 두 원소가 reserveList 의 양옆 값일 때 filter 가 안되지 않을까?
-        for (int j : reserveList) {
-            if (!lostQ.isEmpty()) {
-                if (j == lostQ.peek() - 1 || j == lostQ.peek() + 1) {
-                    removedList.add(lostQ.poll()); //poll()하면서 reserveList에서도 지워준다.
+        //lost와 reserve 가 겹칠 때, 어떻게 제거해줄 수 있지?
+        //이중 for 문으로 겹치는 경우는 -2 넣어주기 (-2 = 빌려줄 수 없다는 뜻의 임의 값)
+        // -1이면, lost +1이면 reserve.
+        for (int i : lost) {
+            for(int j: reserve) {
+                if (i == j) {
+                    arr[i] = -2;
                 }
             }
+        }
 
-            if (!removedList.isEmpty()) {
-                reserveList.removeAll(removedList);
+        for(int i:lost) {
+            if(arr[i]!=-2) {
+                arr[i] -= 1;  // lost라면 -1
+            }
+        }
+        for (int j : reserve) {
+            if(arr[j]!=-2) {
+                arr[j] += 1; // +1 reserve 라면 여분이 있으니 +1
             }
         }
 
-        //lostQ가 존재한다면, lostQ의 크기를 반환.
-
-        if(lostQ.isEmpty()) noShow = 0;
-        else {
-            noShow = lostQ.size();
+        //반례: 6, [2,4,6], [1,3,5]
+        for (int i = 1; i <= n; i++) {
+            if (arr[i] == -1 && arr[i - 1] == 1) {
+                arr[i - 1] -= 1;
+                arr[i] += 1;
+            } else if (arr[i] == -1 && arr[i + 1] == 1) {
+                arr[i + 1] -= 1;
+                arr[i] += 1;
+            }
         }
 
-        answer = n - noShow;
-        //두 배열의 원소 비교.
+        for(int i=1;i<=n;i++) {
+            if(arr[i] == -1) {
+                answer--;
+            }
+        }
         return answer;
     }
-    }
+}
 
 
-    //Queue 사용한 경우
-
-//        Queue<Integer> lostQ = new LinkedList<>();
-//        for(int i:lost) {
-//            lostQ.offer(i);
-//        }
-//
-//        for(int j:reserve) {
-//            if(!lostQ.isEmpty()) {
-//                if (j == lostQ.peek()-1 || j == lostQ.peek()+1) {
-//                    lostQ.poll();
-//                }
-//                //위에 해당하지 않는다면 lostQ는 그대로 있음.
-//            }
-//
-//            //Q가 비어 있다면 더 이상 반복하지 않는다.
-//            else  {
-//                break;
-//            }
-//            //QUEUE가 아니라 RESERVE가 비어있는지 체크해야 하지 않나?
-//        }
-//
-//        if(lostQ.isEmpty()) noShow = 0;
-//        else {
-//            noShow = lostQ.size();
-//        }
-//
-//        answer = n - noShow;
-//        //두 배열의 원소 비교.
-//        return answer;
-//    }
-
-//    public static void main(String[] args) {
-//        Scanner sc = new Scanner(System.in);
-//        Training T = new Training();
-//        int n = sc.nextInt();
-//        int lostN = sc.nextInt();
-//        int[] lost = new int[lostN];
-//        for(int i=0;i<lostN;i++){
-//            lost[i] = sc.nextInt();
-//        }
-//        int reserveN = sc.nextInt();
-//        int[] reserve = new int[reserveN];
-//        for(int j=0;j<reserveN;j++){
-//            reserve[j] = sc.nextInt();
-//        }
-//    }
 
 

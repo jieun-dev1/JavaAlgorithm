@@ -49,4 +49,15 @@ public class ProgrammersTest {
         int result = training.solution(n, lost, reserve);
         Assert.assertEquals(answer, result);
     }
+
+    @Test
+    public void test4() {
+        int n = 5;
+        int[] lost = {1,2};
+        int[] reserve = {2,3};
+        int answer = 4;
+
+        int result = training.solution(n, lost, reserve);
+        Assert.assertEquals(answer, result);
+    }
 }
