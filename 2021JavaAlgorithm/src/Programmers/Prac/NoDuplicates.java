@@ -1,36 +1,37 @@
 package Programmers.Prac;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+import javax.print.attribute.IntegerSyntax;
 
+//이 문제는 Queue 가 아니라 ArrayList로 푸는 문제.
 public class NoDuplicates {
     public int[] solution(int []arr) {
         int[] answer = {};
-        Queue<Integer> queue = new LinkedList<>();
-        Queue<Integer> secQue = new LinkedList<>();
-        //queue에 모든 숫자를 넣음.
-        for(int i:arr) {
-            queue.add(i);
-        }
 
-        //Queue에서, 중복인 것들을 pop하자
-        for(int i:queue) {
-        if(!queue.isEmpty()) {
-            int temp = queue.poll();
-            secQue.offer(temp);
-            if(queue.peek() == temp) {
-                queue.poll();
+        ArrayList<Integer> list = new ArrayList<>();
+
+        for(int i=0;i<arr.length;i++) {
+            if(i==0) {
+                list.add(arr[0]);
             } else {
-                secQue.offer(temp);
+                if(arr[i] == list.get(list.size()-1)) {
+                    continue;
+                }
+                else {
+                    list.add(arr[i]);
+                }
             }
         }
-        }
 
-        for(int i=0;i<secQue.size();i++) {
-            answer[i] = secQue.poll();
+        answer = new int[list.size()]; //ArrayIndexOutOfBounds 에러가 났던 이유. answer 배열을 만들어줬지만, 크기를 정해주지 않아서.
+
+        for(int i=0;i<list.size();i++) {
+            answer[i] = list.get(i).intValue();
         }
 
         return answer;
     }
-
 }
