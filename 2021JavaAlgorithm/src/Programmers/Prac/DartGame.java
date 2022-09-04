@@ -26,8 +26,8 @@ public class DartGame {
 
     Stack<Integer> stack = new Stack<>();
 
-    for(int i=0;i<dartResult.length();i++) {
-      if(dartResult.charAt(i) == 'S') {
+    for (int i = 0; i < dartResult.length(); i++) {
+      if (dartResult.charAt(i) == 'S') {
         continue;
       } else if (dartResult.charAt(i) == 'D') {
         stack.add((int) Math.pow(stack.pop(), 2));
@@ -35,16 +35,16 @@ public class DartGame {
         stack.add((int) Math.pow(stack.pop(), 3));
       } else if (dartResult.charAt(i) == '*') {
         int temp1 = stack.pop();
-        if(!stack.isEmpty()) {
-          stack.add(2*stack.pop());
+        if (!stack.isEmpty()) {
+          stack.add(2 * stack.pop());
         }
-        stack.add(2*temp1);
+        stack.add(2 * temp1);
       } else if (dartResult.charAt(i) == '#') {
-          stack.add(-1*stack.pop());
-          //10일 경우
-      } else if (dartResult.charAt(i) == '1' && dartResult.charAt(i+1) == '0') {
-          stack.add(10);
-          i++; //i++를 꼮 해줘야 한다. 아니면 0이 다음 순회에서 add 되기 때문이다.
+        stack.add(-1 * stack.pop());
+        //10일 경우
+      } else if (dartResult.charAt(i) == '1' && dartResult.charAt(i + 1) == '0') {
+        stack.add(10);
+        i++; //i++를 꼮 해줘야 한다. 아니면 0이 다음 순회에서 add 되기 때문이다.
       }  // 11일 경우
       else {
         stack.add(dartResult.charAt(i) - '0');
@@ -53,21 +53,12 @@ public class DartGame {
 
     int answer = 0;
 
-    for(int i=0;i<stack.size();i++) {
-        answer+=stack.get(i);
+    for (int i = 0; i < stack.size(); i++) {
+      answer += stack.get(i);
     }
 
     return answer;
 
-  }
-
-  public static void main(String[] args) {
-    DartGame T = new DartGame();
-    String dartResult = "";
-    String[] dartArray = dartResult.split("[S,D,T,#,*]");
-    for(int i=0;i<dartArray.length;i++) {
-      System.out.println(dartArray[i]);
-    }
   }
 
 }
