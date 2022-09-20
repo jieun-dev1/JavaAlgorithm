@@ -16,17 +16,21 @@ public class PuppetReSolve {
       for(int j=0;j< board.length;j++){
         if(board[j][currentOrder]!=0){
           int temp = board[j][currentOrder];
-          //0이 아니어서 넣으려고 했는데 bucket의 맨 위 원소와 같다면. answer+=2 (둘다 pop이니까), 그리고 마지막 원소도 pop해줌. null일 경우 처리 필요한가?
-          if(bucket.peek()==null || bucket.peek()!=temp){
+          //stackempty exception
+          if(bucket.isEmpty()) {
+            bucket.push(temp);
+          }
+          else if(bucket.peek()!=temp){
             bucket.push(temp); //버킷이 비어있으면 무조건 넣기 or 버킷의 맨 위 숫자가 현재 숫자와 일치 x 넣어주기.
           }
+          //마지막 숫자와 temp 숫자가 일치하고, bucket 도 비어있지 않을 때.
           else {
             bucket.pop();
             answer+=2;
+            break; //한 번 터뜨리고 나면, 다음으로 넘어가야한다.
           }
         }
       }
-
     }
     return answer;
   }
