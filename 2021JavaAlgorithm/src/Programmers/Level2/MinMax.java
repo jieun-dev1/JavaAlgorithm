@@ -1,4 +1,4 @@
-package Programmers.Level1;
+package Programmers.Level2;
 
 /**
  * 풀이시간: 40분 s.split("\\s+") 은 String 배열을 괄호 안의 구분자로 구분하여 리턴한다. NumberFormatException: 숫자가 아닌 형을
