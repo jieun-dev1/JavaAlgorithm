@@ -60,4 +60,27 @@ public class ProgrammersTest {
         int result = training.solution(n, lost, reserve);
         Assert.assertEquals(answer, result);
     }
+
+    @Test
+    public void test5() {
+        int n = 5;
+        int[] lost = {4,2};
+        int[] reserve = {1,5,3};
+        int answer = 5;
+
+        int result = training.solution(n, lost, reserve);
+        Assert.assertEquals(answer, result);
+    }
+
+    @Test
+    public void test6() {
+        int n = 5;
+        int[] lost = {2,4};
+        int[] reserve = {3,1};
+        int answer = 5;
+
+        int result = training.solution(n, lost, reserve);
+        Assert.assertEquals(answer, result);
+    }
+
 }

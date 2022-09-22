@@ -34,34 +34,23 @@ Static 메서드에서 접근하는 변수 역시 static 이 선언되어야 한다.
 public class UnionFind {
 
     static int[] arr;
-    /*
-    Find함수의 역할: 1번, 2번 등에 대한 집합 번호를 리턴 해줌.
-    같을 때: v를 그대로 리턴해주고,
-    다를 때: unf[fa] = fb가 되어야 함.
-    Union하면서 처음 find를 쓸 떄는, if(v == unf[v]) 만 해당
-    Union을 하면서, Find를 통해 v(집합의 값) 집어넣은 후에는
-    이제 v!=unf[v] 경우가 생기고,
-    인덱스와 값이 불일치하는 값을 찾아주게 됨.
-    */
 
     public static void Union(int a, int b) {
         int fa = Find(a);
         int fb = Find(b);
-        if(fa!=fb) arr[fa] = fb; // fa 와 fb가 다르다는 것은 둘이 연결되어 있다는 것이다.
+        arr[fa] = fb;
     }
 
-    //Union_v2: 더 작은 값으로 합쳐보자.
 
     public static int Find(int v) {
-        if (v == arr[v]) return v; //Union 하기 전.
+        if(v == arr[v]) return v;
         else {
-            return arr[v] = Find(arr[v]); //Union 한 후. 재귀.
+            return arr[v] = Find(arr[v]);
         }
     }
 
-    //1. 주어진 입력을 Union을 거쳐서 세팅
-    //초기화에 i를 넣음/ 임시 값이지만, i를 (v에 인덱스를) 넣은 이유: 4는 연결이 없으니, find함수 거쳐도 4다. 이미 4가 들어가 있어서, Union에서 변경을 안해도 되기 때문이다.
-    //unf[v] = Find(unf(V))를 하는 이유: 압축을 위해서
+    //solution: 부모 노드가 같으면 skip한다.
+
     public static void main(String[] args) {
         UnionFind T = new UnionFind();
         Scanner sc = new Scanner(System.in);
@@ -78,17 +67,17 @@ public class UnionFind {
             T.Union(a,b);
         }
 
-        //주어진 값이 연결인지 응답.
         int givenX = sc.nextInt();
         int givenY = sc.nextInt();
 
-        //fx:4, fy:9여서 오답이다. 배열에서 읽어오는 것은 부모 노드를 찾은 답이 아니다. . arr 에 작업이 되었다고 해도, 연결 상태를 보여주는 것이지, (1 2 3) - 4(부모) -5(4의 부모) 와 같은 관계일 때,
+        //givenX와 givenY의 부모가 같은지 찾자.
+        int fx = Find(givenX);
+        int fy = Find(givenY);
 
-        String answer ="";
-        if(arr[givenX] == arr[givenY]) answer = "YES";
-        if(arr[givenX] != arr[givenY]) answer = "NO";
-
-        System.out.println(answer);
+        if(fx==fy) System.out.println("YES");
+        else {
+            System.out.println("NO");
+        };
     }
 }
 

@@ -16,9 +16,9 @@ public class Training {
 
     public int solution(int n, int[] lost, int[] reserve) {
         int answer = n;
-        int[] arr = new int[n+2];
-        Arrays.sort(lost);
-        Arrays.sort(reserve);
+        int[] arr = new int[n+2]; // o - o o o o o - o
+//        Arrays.sort(lost);
+//        Arrays.sort(reserve);
         //체육복 잃어버린 학생 = 0;
         //주어지는 건 숫자지만, 0부터 인덱스가 시작하기 때문에, 실제로 인덱싱은 -1을 해준다.
 
@@ -34,6 +34,7 @@ public class Training {
             }
         }
 
+        //arr[i]에 인덱스에 맞게 할당해주기 때문에, arrays.sort 필요 x.
         for(int i:lost) {
             if(arr[i]!=-2) {
                 arr[i] -= 1;  // lost라면 -1

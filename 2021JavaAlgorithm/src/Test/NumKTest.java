@@ -1,7 +1,6 @@
 package Test;
 
-import Programmers.Prac.FailureRate;
-import Programmers.Prac.NumK;
+import Programmers.Level1.NumK;
 import org.junit.*;
 import org.junit.Before;
 

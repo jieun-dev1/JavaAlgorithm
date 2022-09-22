@@ -23,11 +23,11 @@ public class Cipher {
         ArrayList<Character> lower = new ArrayList<>();
 
         //['A',....'Z']
-        for (char i ='A'; i<='Z';i++) {
+        for (char i = 'A'; i <= 'Z'; i++) {
             upper.add(i);
         }
         //['a',....'z']
-        for (char i ='a'; i<='z';i++) {
+        for (char i = 'a'; i <= 'z'; i++) {
             lower.add(i);
         }
 
@@ -39,31 +39,30 @@ public class Cipher {
         //if 소문자라면, lower를 / 대문자라면 upper 참조
         //charArray에서 주어진 값의 upper 배열 내 위치를 찾는다. 인덱스를 n 추가해서 다시 할당한다.
         //만약 n+인덱스가 26이상이라면, 26을 빼서 반환한다.
-        for(int i=0;i<givenChar.length;i++) {
+        for (int i = 0; i < givenChar.length; i++) {
             //현재 인덱스부터 찾기 (temp)
-            if(Character.isUpperCase(givenChar[i])) {
+            if (Character.isUpperCase(givenChar[i])) {
                 int temp = upper.indexOf(givenChar[i]);
-                if(temp+n<26) {
-                    answerChar.add(upper.get(temp+n));
+                if (temp + n < 26) {
+                    answerChar.add(upper.get(temp + n));
                 } else {
-                    answerChar.add(upper.get(temp+n-26));
+                    answerChar.add(upper.get(temp + n - 26));
                 }
             }
 //
             else if (Character.isWhitespace(givenChar[i])) {
                 answerChar.add(givenChar[i]);
-            }
-            else {
+            } else {
                 int temp = lower.indexOf(givenChar[i]);
-                if(temp+n<26) {
-                    answerChar.add(lower.get(temp+n));
+                if (temp + n < 26) {
+                    answerChar.add(lower.get(temp + n));
                 } else {
-                    answerChar.add(lower.get(temp+n-26));
+                    answerChar.add(lower.get(temp + n - 26));
                 }
             }
         }
         String answer = "";
-        for(int i=0;i<answerChar.size();i++){
+        for (int i = 0; i < answerChar.size(); i++) {
             answer += answerChar.get(i);
         }
         //char 배열을 String 으로 변환해서 반환.

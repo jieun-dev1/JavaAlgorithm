@@ -1,6 +1,6 @@
 package Test;
 
-import Programmers.Prac.FailureRate;
+import Programmers.Level1.FailureRate;
 import org.junit.*;
 
 public class FailureRateTest {
