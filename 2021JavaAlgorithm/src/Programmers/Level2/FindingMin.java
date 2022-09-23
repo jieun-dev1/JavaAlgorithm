@@ -13,12 +13,20 @@ public class FindingMin {
 
     //A를 오름차순 정렬
     Arrays.sort(A);
-    //B를 내림차순 정렬 - Integer 타입 배열로 변경 필요
-    Integer[] arrB = Arrays.stream(B).boxed().toArray(Integer[]::new);
-    Arrays.sort(arrB, Collections.reverseOrder());
+
+    // V2
+    Arrays.sort(B);
+    int len = B.length;
+    // Integer 형 변환하지 않고, 같은 크기의 배열에 순서를 뒤집어서 넣어준다.
+    int[] reverseB = new int[len];
+    for(int i=0;i<len;i++) {
+      reverseB[i] = B[len-1-i];
+    }
+
     //순회 하면서 A와 B를 곱해서 더하기.
     for(int i=0;i<A.length;i++) {
-      int temp = A[i]*arrB[i];
+      int temp = A[i]*reverseB[i];
+//      int temp = A[i]*arrB[i];
       answer+=temp;
     }
     return answer;
