@@ -34,7 +34,6 @@ public class LeastCommon {
 
   public static void main(String[] args) {
     LeastCommon T = new LeastCommon();
-//    System.out.println(T.solution(new int[] {2,6,8,14}));
     System.out.println(T.solution(new int[] {2,6,8,14}));
 
   }
