@@ -27,7 +27,7 @@ public class Shiritori {
       list.add(words[i]);
       set.add(words[i]);
       if (set.size() != list.size()) {
-        answer[0] = 3- ((i + 1) % n);//번호
+        answer[0] = (i % n)+1; //번호
         answer[1] = (int)Math.ceil((i + 1) / n); //차례
         return answer;
       }
@@ -39,7 +39,8 @@ public class Shiritori {
         stack.push(words[i].charAt(words[i].length()-1));
       } else if ((i != 0) && (i == words.length - 1) && (stack.peek() != words[i].charAt(
           0))) { //stack 의 맨 위 원소 == 현재 원소의 첫 글자가 일치하지 않으면
-        answer[0] = (i + 1) % n;//번호
+        answer[0] = (i % n)+1; //번호
+//        answer[0] = (i + 1) % n;//번호
         answer[1] = (i + 1) / n; //차례
         return answer;
       } else if ((i != 0) && (i != words.length - 1) && (stack.peek() == words[i].charAt(0))) { //stack 의 맨 위 원소 == 현재 원소의 첫 글자가 일치하면 stack의 맨 위 원소를 pop하고, 현재 마지막 글자 넣기.
