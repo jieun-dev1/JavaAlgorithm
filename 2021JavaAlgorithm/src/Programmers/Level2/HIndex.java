@@ -11,24 +11,30 @@ import java.util.Collections;
 */
 public class HIndex {
   public int solution(int[] citations) {
-    int n = (int)Math.ceil((double)citations.length/2);
-
+    int n =citations.length;
+    int answer= 0;
     Integer[] arr = new Integer[citations.length];
     for(int i=0;i<citations.length;i++) {
       arr[i] = citations[i];
     }
     Arrays.sort(arr, Collections.reverseOrder());
 
-    int answer = (int) arr[n-1];
+    for(int i=n;i>=1;i--) {
+      if((arr[i-1])>=i) {
+        answer = i;
+        break; //break를 해야 최대값을 구하고 빠져나온다
+      }
+    }
+
     return answer;
   }
 
   public static void main(String[] args) {
     HIndex index = new HIndex();
-//    System.out.println(index.solution(new int[] {3,0,6,1,5}));
+    System.out.println(index.solution(new int[] {3,0,6,1,5}));
 //    System.out.println(index.solution(new int[] {0, 0, 0, 0, 0}));
-//    System.out.println(index.solution(new int[] {0, 0, 0, 0, 1})); //정답: 1 내 답: 0
-    System.out.println(index.solution(new int[] {9, 9, 9, 12})); //정답: 4 내 답: 9
+//    System.out.println(index.solution(new int[] {0, 0, 0, 0, 1})); //정답: 1 내 답: 1
+//    System.out.println(index.solution(new int[] {9, 9, 9, 12})); //정답: 4 내 답: 9
 
 
   }
