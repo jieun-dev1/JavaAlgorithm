@@ -1,15 +1,17 @@
 package Programmers.Level2;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
- * 캐시의 사이즈가 5라면, 5만큼의 크기를 저장함. 입력할 작업이 캐시에 없다면:
+ArrayList는 더할 떄 끝에 더해줌.
  */
 public class FirstCache {
 
   public int solution(int cacheSize, String[] cities) {
     int answer = 0;
-    ArrayList<String> cache = new ArrayList<>();
+    Queue<String> queue = new LinkedList<>();
     for(int i=0;i<cities.length;i++) {
       cities[i] = cities[i].toUpperCase();
     }
@@ -19,27 +21,28 @@ public class FirstCache {
       return answer;
     } else {
       for (int i = 0; i < cacheSize; i++) {
-        cache.add(cities[i]); //cacheSize만큼 List에 넣는 초기설정.
+        queue.offer(cities[i]); //cacheSize만큼 List에 넣는 초기설정.
         answer += 5;
       }
 
       for (int i = cacheSize; i < cities.length; i++) {
         //캐시에 없을 경우 맨뒤의 원소를 제거하고 맨 앞의 원소 추가함.
 
-        if (!cache.contains(cities[i])) {
-          cache.remove(cacheSize - 1);
-          cache.add(0, cities[i]);
+        if (!queue.contains(cities[i])) {
+          queue.poll();
+          queue.offer(cities[i]);
           answer += 5;
         }
-        //캐시에 있는데 순서가 첫 번째가 아닐 경우
-        else if (cache.contains(cities[i]) && (cache.indexOf(cities[i]) != 0)) {
-          cache.remove(cacheSize - 1);
-          cache.add(0, cities[i]);
+        //캐시에 있는데 순서가 첫 번째가 아닐 경우 위와 같이 poll() 후 offer()를 하지만, answer는 hit이므로 1추가.
+        else if (queue.contains(cities[i]) && (queue.peek() != cities[i])) {
+          queue.poll();
+          queue.offer(cities[i]);
           answer += 1;
         }
+
         //캐시에 있는데 순서가 첫 번째일 경우
-        else if (cache.contains(cities[i]) && (cache.indexOf(cities[i]) == 0)) {
-          answer += 1;
+        else if (queue.contains(cities[i]) && (queue.peek() == cities[i])) {
+          answer += 1; //아무것도 할 게 없음.
         }
       }
     }
