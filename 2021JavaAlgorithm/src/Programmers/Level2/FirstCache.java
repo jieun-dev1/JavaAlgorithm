@@ -1,18 +1,19 @@
 package Programmers.Level2;
 
 import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * ArrayList는 더할 떄 끝에 더해줌. Queue의 Size 측정하는 이유: Queue가 cacheSize보다 짧다면 offer만 해도 되지만, cacheSize와 같으면
  * 기존 원소 poll, offer() 과정. 삽입된 데이터를 사용하면, HEAD 로 옮겨서 우선순위를 높이게 되고 삭제될 우선순위에서 멀어짐. Queue가 아닌
- * LinkedList로 구현해야, indexOf를 할 수 있음. 처음에 부모를 Queue로 선언했는데, 이렇게 하면 사용 가능한 메서드가 제한됨.
+ * Queue는 Collection 을 상속 받음. Queue에 정의 되어 있지 않아도 Collection 의 메서드 사용 가능함.
  *
  */
 public class FirstCache {
 
   public int solution(int cacheSize, String[] cities) {
     int answer = 0;
-    LinkedList<String> queue = new LinkedList<>();
+    Queue<String> queue = new LinkedList<>();
     for (int i = 0; i < cities.length; i++) {
       cities[i] = cities[i].toUpperCase();
     }
@@ -31,8 +32,7 @@ public class FirstCache {
       //cache hit
       else if (queue.contains(cities[i]) && queue.peek() != cities[i]
           && queue.size() <= cacheSize) {
-        int temp = queue.indexOf(cities[i]);
-        queue.remove(temp);
+        queue.remove(cities[i]);
         queue.offer(cities[i]);
         answer += 1;
       }
