@@ -11,10 +11,15 @@ public class shortestPath {
   static int[] dy = {0, 1, 0, -1};
   static int[][] ch;
   static int answer = Integer.MAX_VALUE;
+  static int mapsX;
+  static int mapsY;
 
   public int solution(int[][] maps) {
     ch = new int[maps.length][maps[0].length];
-    if (maps[maps.length - 2][maps[0].length - 1]==0 && maps[maps.length - 1][maps[0].length - 2]==0) {
+    mapsX = maps.length;
+    mapsY = maps[0].length;
+    //목표점이 닫힌 경우 answer = -1 리턴.
+    if (maps[mapsX - 2][mapsY - 1]==0 && maps[mapsX - 1][mapsY - 2]==0) {
       answer = -1;
       return answer;
     }
@@ -25,23 +30,17 @@ public class shortestPath {
 
 
   public void DFS(int x, int y, int distance, int[][] maps) {
-    //목표점이 닫힌 경우 answer = -1 리턴.
-    if (x == (maps.length - 2) && y == (maps[0].length - 1)) {
-
-    }
 
     //목표 지점에 도달했을 때.
-    if (x == (maps.length - 1) && y == (maps[0].length - 1)) {
+    if (x == (mapsX - 1) && y == (mapsY - 1)) {
       answer = Math.min(answer, distance);
     }
-
-
 
     for (int i = 0; i < 4; i++) {
       int nx = dx[i] + x;
       int ny = dy[i] + y;
       //ch 조건을 넣어줘야 루프를 돌지 않는다. 테두리를 벗어나지 않도록 0과 maps 길이를 벗어나지 않도록 조건 넣어주자.
-      if (nx >= 0 && nx<=maps.length-1 && ny >= 0 && ny<=maps[0].length - 1 && maps[nx][ny] == 1 && ch[nx][ny] == 0) {
+      if (nx >= 0 && nx<=mapsX-1 && ny >= 0 && ny<=mapsY - 1 && maps[nx][ny] == 1 && ch[nx][ny] == 0) {
         ch[nx][ny] = 1;
         DFS(nx, ny, distance + 1, maps);
         ch[nx][ny] = 0;
