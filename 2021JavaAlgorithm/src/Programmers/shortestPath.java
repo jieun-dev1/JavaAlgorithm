@@ -5,6 +5,8 @@ import java.util.Queue;
 
 /**
  * n과 m은 각각 1 이상 100 이하의 자연수
+ *
+ * 시간복잡도: 정점 한 개당 n번의 loop를 돈다. 모든 정점을 방문해야 하므로, n*n = O(N^2)
  */
 
 public class shortestPath {
