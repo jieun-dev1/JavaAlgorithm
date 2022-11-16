@@ -6,15 +6,13 @@ import java.util.Scanner;
 
 /**
  * n==m일때의 처리
- *
- *  0 100000 하면 힙 에러가 나는 것 같다 - 원인 파악 필요
+ * 소요시간 2시간.
+ * 지연 원인: 현 시점에서 2배인데, 첫번쨰 출발점에서 2배로 잘못 이해함 (문제 예시 꼼꼼히 읽기)
+ * check 배열은 주어진 m범위 내에서만.
  */
 public class BJ1697 {
 
   static int answer = 0;
-  static int startP;
-  static int destP;
-  static int[] dis;
   static int[] ch;
 
   class Node {
@@ -32,26 +30,25 @@ public class BJ1697 {
 
   public int solution(int start, int destination, int level) {
     Queue<Node> queue = new LinkedList<>();
-    ch = new int[200001]; //동생에게 가기까지의 배열
+    ch = new int[100001]; //동생에게 가기까지의 배열
 
-    startP = start;
-    destP = destination;
-    dis = new int[]{startP, 1, -1};
-    Node current = new Node(startP, destP, level);
+    int[] dis = new int[]{start, 1, -1};
+    Node current = new Node(start, destination, level);
     queue.offer(current);
 
+    //
     while (!queue.isEmpty()) {
       Node temp = queue.poll();
 
-      if (temp.start == destP) {
+      if (temp.start == destination) {
         return answer;
       }
       for (int i = 0; i < dis.length; i++) {
+        dis[0] = temp.start;
         int nx = temp.start + dis[i];
-        if (nx > 200000 || nx<0) {
+        if (nx > 100000 || nx<0 || ch[nx]!=0) {
           continue;
         }
-
         if (nx == destination) {
           temp.level += 1;
           return temp.level;
@@ -70,5 +67,7 @@ public class BJ1697 {
     int b = sc.nextInt();
     System.out.println(T.solution(a, b, 0));
     //5,0 5 - 정답
-  }
+    //5,17,4 - 정답
+    //0,100000,100000 - 정답
+    }
 }
