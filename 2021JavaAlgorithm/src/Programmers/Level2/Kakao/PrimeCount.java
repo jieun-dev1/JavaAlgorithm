@@ -7,7 +7,10 @@ import java.util.Scanner;
 0을 기준으로 split 하고 하나씩 for문 돌면서 소수인지 확인.
 
  Integer.parseInt(). numberformatexception
- 예상 원인: n이 크면 진수가 길 수 밖에없음.
+ 예상 원인: n이 크면 2,3진수 등의 경우만 생각해도 더 길어진다.
+ 이럴 때 n이 오버플로우 될 수 있으니, int를 long 형으로 바꿔진다.
+
+ 소요시간: 2시간.
  */
 public class PrimeCount {
   public int solution(int n, int k) {
@@ -19,12 +22,11 @@ public class PrimeCount {
     }
     str+=String.valueOf(n);
     String reversed = new StringBuffer(str).reverse().toString(); //다시 reverse
-
     String[] arr = reversed.split("([0])+");
     long[] longArr = new long[arr.length];
 
     for(int i=0;i<arr.length;i++){
-      longArr[i] = Long.parseLong(arr[i]);
+      longArr[i] = Long.parseLong(arr[i]); // lng으로 parse 해줌.
     }
 
     for(int i=0;i<longArr.length;i++){
@@ -42,7 +44,7 @@ public class PrimeCount {
    */
 
   public boolean ifPrime(long n){
-    for(long i=2;i<n;i++){
+    for(long i=2;i<=Math.sqrt(n);i++){
       if((n%i)==0){
         return false;
       } else {
