@@ -1,49 +1,16 @@
 package Programmers.Study;
 
 /**
- * 풀이 시간: 40시간
- * 1. arr1 과 arr2가 반복되는 코드를 어떻게 줄이지?
+ * StringBuffer 와 String Builder
+ * String Builder:
+ * (1) 동기화를 지원하지 않는 반면, 속도면에선 StringBuffer 보다 성능이 좋습니다.
+ * (2) 단일 스레드 환경 과 문자열의 추가, 수정, 삭제 등이 빈번히 발생하는 경우
+ * StringBuffer: 멀티스레드 환경 시, 문자열 추가/삭제/수정이 빈번히 발생할 때
  */
 public class SecretMap {
 
   public String[] solution(int n, int[] arr1, int[] arr2) {
-    /**
-     * 숫자를 2진수로 변환한
-     */
-    char[][] answerArr = new char[n][n];
-    String[] stringAnswer = new String[n];
 
-    int[][] binArr1 = convertToBinary(arr1, n);
-    int[][] binArr2 = convertToBinary(arr2, n);
-
-    /**
-     * 이중 for 문 내부에서 - for문 2개를 거침 2X16X16  +16X16+16X16 = 16X16X4 = 1024;
-     */
-
-    // 하나라도 1이 나오면 answerArr는 1이 되는 것.
-    for(int i=0;i<n;i++){
-      for(int j=0;j<n;j++){
-        if(binArr1[i][j]==1 || binArr2[i][j]==1 ){
-          answerArr[i][j] = 1;
-        }
-      }
-    }
-
-    // # 혹은 공백으로 채워주기.
-    for(int i=0;i<n;i++){
-      StringBuilder s = new StringBuilder();
-      for(int j=0;j<n;j++){
-        //한 행마다 s를 갖는다.
-        if(answerArr[i][j]==1){
-          answerArr[i][j] = '#';
-        } else {
-          answerArr[i][j] = ' ';
-        }
-        s.append(answerArr[i][j]);
-      }
-      stringAnswer[i] = s.toString();
-    }
-    return stringAnswer;
   }
 
   public int[][] convertToBinary(int[] arr, int n){
