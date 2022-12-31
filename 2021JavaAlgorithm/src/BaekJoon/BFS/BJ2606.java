@@ -4,18 +4,23 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class BJ2606 {
   static List<Integer>[] list;
   static int[] ch;
   static int answer = 0;
+  static Queue<Integer> queue = new LinkedList<>();
 
   public void DFS(int start){
     List<Integer> adjacent = list[start];
     //adjacent가 빈 배열인지 확인해주지 않으면 NullPointer가 남
-    if(adjacent!=null){ //isEmpty가 아님. 연결이 안되어 있을 경우 list[start]에 원소가 없음. 2) while -> if 로 변경 (while 이라면 무한 반복이라 못빠져나옴, if는 한번만 체크함)
+    if(adjacent!=null){
+      //isEmpty가 아님. 연결이 안되어 있을 경우 list[start]에 원소가 없음. 2) while -> if 로 변경
+      // (while 이라면 무한 반복이라 못빠져나옴, if는 한번만 체크함)
       //o(100)
       for(int i=0;i<adjacent.size();i++){
         int temp = adjacent.get(i); //temp는 인접리스트를 차례로 읽어오는 값이다. 모르고 ch[adjacent.get(i)]를 했는데, 이러면 0 혹은 1이 나옴
@@ -26,7 +31,19 @@ public class BJ2606 {
         }
       }
     }
+  }
 
+  public void BFS(){
+    while(!queue.isEmpty()){
+      int x = queue.poll();
+      for(int i=0;i<list[x].size();i++){
+        int temp = list[x].get(i);
+        if(ch[temp]==0){
+          queue.offer(temp);
+          ch[temp]=1;
+        }
+      }
+    }
   }
 
   public static void main(String[] args) throws IOException {
@@ -54,9 +71,11 @@ public class BJ2606 {
       list[x].add(y);
       list[y].add(x);
     }
-    T.DFS(1); //DFS 는 NON STATIC 메서드라서, NON-STATIC에서 REFER 불가.
+//  T.DFS(1); //DFS 는 NON STATIC 메서드라서, NON-STATIC에서 REFER 불가.
+//  해당 메서드에서는 queue에 원소를 넣어야, BFS 가 시작될 수 있다. 그렇지 않으면 LIST 가 EMPTY이기에
+    queue.add(1);
+    T.BFS();
 
-    //answerCh가 아니라 ch를 체크함. ch는 DFS 끝나면 0으로 되서, DFS 문 모두 끝나면 다 0으로 초기화 됨.
     //o(100)
     for(int i=0;i<ch.length;i++){
       if(ch[i]==1){
