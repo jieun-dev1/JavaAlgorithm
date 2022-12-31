@@ -47,7 +47,7 @@ class MaxNum {
         //ÃÑ(o(26+26+25+25) = ¾à o(100)
         for(int i=0;i<opsC.size();){ //25
           char op = opsC.get(i); //25
-          if(i!=opsC.size()&&op!=c){
+          if(op!=c){
             i++;
             continue;
           }
