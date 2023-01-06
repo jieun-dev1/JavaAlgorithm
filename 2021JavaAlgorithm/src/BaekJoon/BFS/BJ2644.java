@@ -21,20 +21,27 @@ public class BJ2644 {
       //i는 현재 queue의 크기 만큼 순회하는 len이다.
       for(int i=0;i<len;i++){
         int temp = queue.poll();
+        // 방법 1: 우선은 넣고 queue로 뽑았을 때 확인
+        if(temp==y){
+              return answer;
+            }
         //j: temp 와 연결된 리스트의 사이즈
         ArrayList<Integer> tempList = list.get(temp);
         for(int j=0;j<tempList.size();j++){
-          if(tempList.get(j)==y){
-            answer++;
-            return answer;
-          }
           if(ch[tempList.get(j)]==0){
             queue.offer(tempList.get(j));
             ch[tempList.get(j)]=1;
+// 방법 2: 더 효율적
+//            if(tempList.get(j)==y){
+//              answer++;
+//              return answer;
+//            }
           }
         }
-        answer++;
+//        answer++;
       }
+      answer++;
+
     }
     //목표 지점이 방문이 되어 있다면 answer 리턴.
     if(ch[y]==1){
