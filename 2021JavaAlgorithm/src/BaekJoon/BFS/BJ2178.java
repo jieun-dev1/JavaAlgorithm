@@ -1,6 +1,5 @@
 package BaekJoon.BFS;
 
-import BaekJoon.Format;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,7 +24,10 @@ public class BJ2178 {
   public int solution(int row ,int col, int[][] conn){
     int answer = 0;
     Queue<Node> queue = new LinkedList<>();
+    int[][] ch = new int[row+1][col+1];
+
     queue.add(new Node(1,1));
+    ch[1][1] = 1;
     answer+=1; //Node 가 들어갈 때마다, (혹은 queue가 한 번 돌때마다, answer+=1
 
     int[] dx = {-1, 0, 1, 0};
@@ -45,8 +47,9 @@ public class BJ2178 {
             return answer;
           }
 
-          if(nx>=1&&nx<=row&&ny>=1&&ny<=col&&conn[nx][ny]==1){
+          if(nx>=1&&nx<=row&&ny>=1&&ny<=col&&ch[nx][ny]!=1&&conn[nx][ny]==1){
             queue.add(new Node(nx, ny));
+            ch[nx][ny] = 1;
           }
         }
       }
