@@ -49,13 +49,12 @@ public class BJ2606 {
   public static void main(String[] args) throws IOException {
     BJ2606 T = new BJ2606();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
     //각 정점의 여부 ch 에서 파악. 연결 리스트도 정점 만큼 만들어줌.
     StringTokenizer st = new StringTokenizer(br.readLine());
     int computer = Integer.parseInt(st.nextToken());
     list = new ArrayList[computer+1];
     ch = new int[computer+1];
-    //연결 리스트 초기화 pair 개수 +1 만큼 만들어서, 인덱스신경 안쓰도록.
+    //연결 리스트 초기화 computer 개수 +1 만큼 만들어서, 인덱스신경 안쓰도록.
     st = new StringTokenizer(br.readLine());
     int pair = Integer.parseInt(st.nextToken());
     //O(100)
