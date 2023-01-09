@@ -3,22 +3,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
- * StackOverFlow 원인: DFS 할 떄, 한번 방문한 것은 CH를 해줘야, ch==false 만 dfs 하는 게 의미가 있음.
- * 그래프 유의점: 사방 탐색을 할 때, 주어진 범위를 벗어나서는 안됨.
- * 처음에 solution 함수에서 DFS 를 호출하는 방법을 썼으나, 그렇게 하면 StackFrame 에 쌓이지 않는다.*
- * DFS가 안쌓임.
- *
- * Count를 매번 초기화 해야 하는데, 초기화가 안됐었음.
- * 이유: main 스택 프레임에는 count가 1이라는 변수로 저장되어 있기 때문이다.
- * dfs에서 return 하는 것이 필요하다.
- *
- * static 메서드와 일반 메서드 차이
- *
- * VOID로 풀고 싶다면, ApartNum을 저장해야 한다. (즉 첫 번째 단지 - count가 7로 동일할 때에는,
- * DFS 가 반복되는 동안 동일한 ApartNum (순서) 에 업데이트 되도록 한다.
- * 현재 코드는 main 메서드의 DFS pop 되기 전의 상태를 저장할 방법이 없음.
+ * (1) 출력은 오름차 순으로
+ * (2) 건물이 한 개만 있어도 단지다 (연결이 안되어 있어도 됨)
  */
 public class BJ2667 {
   static ArrayList<Integer> answerArr = new ArrayList<>();
@@ -33,8 +22,8 @@ public class BJ2667 {
 
   public static void DFS(int x, int y) {
     //사방 탐색 - 0부터 배열을 채웠으니 0-3 을 탐색.
-    ch[x][y]=true;
     count++;
+    ch[x][y]=true;
     for(int i=0;i<=3;i++){
       int nx = x+ disX[i];
       int ny = y+ disY[i];
@@ -46,7 +35,6 @@ public class BJ2667 {
     }
   }
   public static void main(String[] args) throws IOException {
-    BJ2667 T = new BJ2667();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     n = Integer.parseInt(br.readLine());
     arr = new int[n+1][n+1];
@@ -59,8 +47,7 @@ public class BJ2667 {
       }
     }
 
-    //기존 solution으로 따로 나눴던 것을 main 에서 해도 ok.
-
+    //단지인 경우만, 답에 추가 되어야 한다. 단지이려면 최소 2개 이상으로 연결되어 있어야 한다 (count가 1이상). 이 경우 시작점은 포함이 안되었으니, 마지막에 추가해준다.
     count = 0;
     for(int x=1;x<=n;x++) {
       for (int y=1; y<=n;y++) {
@@ -71,6 +58,7 @@ public class BJ2667 {
         }
       }
     }
+    Collections.sort(answerArr);
     System.out.println(answerArr.size());
     for(int i=0;i<answerArr.size();i++){
       System.out.println(answerArr.get(i));
