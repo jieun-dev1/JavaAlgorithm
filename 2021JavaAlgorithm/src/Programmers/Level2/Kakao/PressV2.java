@@ -2,52 +2,65 @@ package Programmers.Level2.Kakao;
 
 public class PressV2 {
   public int solution(String s) {
+    /**
+     * 지웅님 코드 참고.
+     *
+     * 핵심 구현
+     * -j에서 출발하여, i간격으로 늘어난다. 간격 i< length/2+1
+     *
+     * -시작점은 i가 바뀌어도 늘 0이다
+     */
     int len = s.length();
-    int answer = len; //처음에는 주어진 길이로 초기화.
-    int size = len/2; //2부터 len의 절반 길이(==size) (홀수라면 17이라면 8까지) 순회하면됨.
-    StringBuilder sb;
-    //첫번째 for는 압축하는 길이.
-    //두번째 for는 시작하는 인덱스.
-      for(int i=2;i<=size;i++){
-        sb = new StringBuilder(); //길이가 2 - size 까지. 여기서 sb는 j가 달라질 때마다, 초기화
-        int count = 1;
-        for(int j=0;j<=len-i;){
-        if(i+j>len){
-          sb.append(s, i, len-1); // 마지막 인덱스까지 더해주고 종료.
-          break;
-        }
-        //i+j, i+2*j 가 길이에서 벗어나지 않는 한, i,j를 이동하면서 count를 세어준다.
-        while((2*i+j<len)&&s.substring(j, i+j).equals(s.substring(i+j, 2*i+j))){ //여기서 앞의 조건문과, 뒤의 substring 끝 부분을 i+2*j라고 했는데, 간격은 i이다. 따라서 2*i+j가 맞음.
-          count++;
-          j+=i; //길이만큼 늘어남.
-        }
-        //더 이상 같은 문자가 없을 경우 count와 이전에 읽은 문자를 더한다. 그리고 j를 옮긴다.
+    int answer = len;
+    //길이가 1인 글자가 동일하게 주어질 수도 있음. - 테스트 1 제대로 보기. 따라서 1부터 길이/2까지 간다.
+    for(int i=1;i<=len/2;i++){
+      //j가 len이랑 같아지는 순간 == 범위에서 벗어나면 exit 됨. substring을 쓸 것이므로 ==로 함. 현재 == str. 다음 == compare.
+      String str = s.substring(0, i);
+      //i+j가 len을 넘을 때/넘지않을 때 분기.
+      StringBuilder sb = new StringBuilder();
+      int count = 1;
 
-        if(count!=1){
-          sb.append(count);
-          sb.append(s.substring(j, i+j)); //현재까지 더해주기
-          j+=i;
-          count = 1; // 다시 1로 초기화
-          //j가 i만큼 이동할 때마다, len을 벗어나지 않았는지 확인 필요. 벗어난다면 len 전까지만 더할 것.
-          if(i+j>len){
-            sb.append(count);
-            sb.append(s.substring(j, len)); // 마지막 인덱스까지 더해주고 종료. len-1이 아닌 len이다.
-            break;
-          }
-        }
-        //count가 1만 있어도 답은 같을 것 같지만.
-        if(count==1 && 2*i+j<len &&!s.substring(j, i+j).equals(s.substring(i+j, 2*i+j))){ //&&!s.substring(j, i+j).equals(s.substring(i+j, 2*i+j) - 제거
-          sb.append(s.substring(j, i+j));
-          j+=i;
+      for(int j=i;j<=len;j+=i){
+        int limit = 0;
+        //i+j == len 일 때 (i간격으로 딱 나눠질 때. 이때, 마지막 compare는 빈 string이다.
+        //나눠지지 않을 때만 compare 값이 존재한다.
+        if(j+i>len) {
+        limit = len; //
+      } else {
+        limit = j+i;
+      }
+        String compare = s.substring(j, limit);
+        if(str.equals(compare)){
+          count++;
+          //동일한 숫자가 없어서, sb에 더해줄 때 count를 다시 1로 초기화한다.
+        } else {
+         if(count>=2){
+           sb.append(count);
+         }
+         sb.append(str);
+         count = 1;
+
+          /**
+           * str =compare 를 해야하는 이유
+           * str = s.substring(j, i+j); //i+j 가 범위 밖이어서 에러 남.
+           * 여기서 s.substring(j, i+j)를 하게 되면, i+j가 limit을 넘어서는 경우를 반영하지 못한다.
+           * ex. 길이가 5인 경우.
+           * limit이 len인 경우까지 str = compare 로 할당해 주는 게 무의미해도, j+=i가 되었을 때 (j==25여서 j>len임. 따라서 for 문에서 바로 나옴)
+           *
+           */
+
+         str = compare;
         }
       }
-        answer = Math.min(sb.length(), answer);
-      }
-    //2부터,
+      sb.append(str); //마지막 수는 범위에 해당되지 않아서 for 문에서 빠져나갈 수 있다. 이 경우, 더해줘야 함.
+      answer = Math.min(answer, sb.length());
+    }
+
     return answer;
   }
   public static void main(String[] args) {
     PressV2 T = new PressV2();
-    System.out.println(T.solution("abcabcabcabcdededededede"));
+    System.out.println(T.solution("aabbaccc"));
+//    System.out.println(T.solution("abcabcabcabcdededededede"));
   }
 }
